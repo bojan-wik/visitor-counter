@@ -5,11 +5,14 @@ from flask_migrate import Migrate
 # setup database
 db = SQLAlchemy()
 
-def create_app():
+def create_app(**config_overrides):
     app = Flask(__name__)
 
     # load config
     app.config.from_pyfile("settings.py")
+
+    # apply overrides for tests
+    app.config.update("settings.py")
     
     # initialize database
     db.init_app(app)
